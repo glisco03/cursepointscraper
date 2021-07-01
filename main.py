@@ -46,12 +46,12 @@ for transaction in soup.findAll("div", {"class": "transactions"}):
 mostRecentTransaction = date_to_transaction[get_key(date_to_transaction, 0)]
 
 # The first column is empty, the dates don't need a header
-output = ";"
+output = ","
 project_names = []
 
 # Prepare the first row in our csv with the names for every project
 for project in mostRecentTransaction:
-    output += project + ";"
+    output += project + ","
     project_names.append(project)
 
 output += "\n"
@@ -66,7 +66,7 @@ timedelta = datetime.timedelta(days=1)
 while pointer_date <= target_date:
 
     date = str(pointer_date)
-    output += date + ";"
+    output += date + ","
 
     # Check if there is a transaction for this day
     if date in date_to_transaction:
@@ -74,9 +74,9 @@ while pointer_date <= target_date:
         # for padding if there is no reward for it in this transaction
         for project in project_names:
             if project in date_to_transaction[date]:
-                output += str(date_to_transaction[date][project]) + ";"
+                output += str(date_to_transaction[date][project]) + ","
             else:
-                output += ";"
+                output += ","
 
     output += "\n"
     pointer_date += timedelta
